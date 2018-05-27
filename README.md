@@ -1,5 +1,5 @@
 # FRC-Tools
-A Firebase web app that allows. 
+A Firebase web app that allows FRC teams to keep track of tools they have lent out. 
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development, testing, and use.
