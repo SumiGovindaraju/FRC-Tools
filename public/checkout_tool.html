@@ -42,7 +42,7 @@
             <p>Name:</p><input class="form-control" id="name" placeholder="Name" type="text" />
             <p>Tool:</p><input class="form-control" id="tool" placeholder="Tool" type="text" />
             <p>Team Number:</p><input class="form-control" id="team-number" placeholder="Team Number" type="number" />
-            <button class="btn btn-primary" onclick="addTool()">Add Tool</button>
+            <div class="btn btn-primary" onclick="addTool()">Add Tool</div>
         </form>
         <style>
             form>* {
@@ -51,7 +51,9 @@
         </style>
         <script>
             function addTool() {
-                if ($("#name").val() == "" || $("#tool").val() == "" || $("#team-number").val() == "") {
+                var name = $("#name").val(), tool = $("#tool").val(), team_number = $("#team-number").val();
+
+                if (name == "" || tool == "" || team_number == "") {
                     alert("Error: All fields must be filled.")
                     return;
                 }
@@ -59,12 +61,12 @@
                 var newToolRef = firebase.database().ref().child('tools').push();
 
                 newToolRef.set({
-                    "name": $("#name").val(),
+                    "name": name,
                     "hidden": false,
                     "returned": false,
                     "time": (new Date()).toString(),
-                    "tool": $("#tool").val(),
-                    "team": $("#team-number").val()
+                    "tool": tool,
+                    "team": team_number
                 });
 
                 $("#name").val("");
