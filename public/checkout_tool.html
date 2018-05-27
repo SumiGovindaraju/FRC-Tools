@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        
+        <title>FRC Tools</title>
+        
+        <!-- update the version number as needed -->
+        <script defer src="/__/firebase/5.0.4/firebase-app.js"></script>
+
+        <!-- include only the Firebase features as you need -->
+        <script defer src="/__/firebase/5.0.4/firebase-auth.js"></script>
+        <script defer src="/__/firebase/5.0.4/firebase-database.js"></script>
+        <script defer src="/__/firebase/5.0.4/firebase-messaging.js"></script>
+        <script defer src="/__/firebase/5.0.4/firebase-storage.js"></script>
+        <!-- initialize the SDK after all desired features are loaded -->
+        <script defer src="/__/firebase/init.js"></script>
+        
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">FRC Tools</a> <button aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarText" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../checkout_tool.html">Checkout Tool</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <form style="width: 45%; margin: auto;">
+            <p>Name:</p><input class="form-control" id="name" placeholder="Name" type="text" />
+            <p>Tool:</p><input class="form-control" id="tool" placeholder="Tool" type="text" />
+            <p>Team Number:</p><input class="form-control" id="team-number" placeholder="Team Number" type="number" />
+            <button class="btn btn-primary" onclick="addTool()">Add Tool</button>
+        </form>
+        <style>
+            form>* {
+                margin-top: 1%;
+            }
+        </style>
+        <script>
+            function addTool() {
+                if ($("#name").val() == "" || $("#tool").val() == "" || $("#team-number").val() == "") {
+                    alert("Error: All fields must be filled.")
+                    return;
+                }
+
+                var newToolRef = firebase.database().ref().child('tools').push();
+
+                newToolRef.set({
+                    "name": $("#name").val(),
+                    "hidden": false,
+                    "returned": false,
+                    "time": (new Date()).toString(),
+                    "tool": $("#tool").val(),
+                    "team": $("#team-number").val()
+                });
+
+                $("#name").val("");
+                $("#tool").val("");
+                $("#team-number").val("");
+            }
+        </script>
+    </body>
+</html>
